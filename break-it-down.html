@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Break Any Task Into Small Steps – Free Task Breakdown Tool | Halfstep</title>
+<meta name="description" content="Stuck on a task? Type it in and get small, doable steps with minutes for each. Free, no sign-up, and nothing leaves your browser. Made for procrastinators and ADHD brains.">
+<link rel="canonical" href="https://halfstep-apps.github.io/break-it-down.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Break any task into small steps">
+<meta property="og:description" content="Type a task, get small doable steps. Free, no sign-up, nothing leaves your browser.">
+<meta property="og:url" content="https://halfstep-apps.github.io/break-it-down.html">
+<meta name="theme-color" content="#FAF7F2">
+<style>
+  :root {
+    --bg: #FAF7F2; --card: #FFFFFF; --ink: #241F1B; --muted: #6B615A;
+    --line: #E8E1D7; --accent: #B65B24; --accent-ink: #FFFFFF; --soft: #F6E7DC;
+    --done: #8A817A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1A1714; --card: #24201C; --ink: #F3EDE6; --muted: #B3A89E;
+      --line: #3A332D; --accent: #E0864A; --accent-ink: #1A1714; --soft: #3A2A1F;
+      --done: #8F857C;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 640px; margin: 0 auto; padding: 32px 16px 48px; }
+  a { color: var(--accent); font-weight: 600; }
+  .brand { font-size: 14px; color: var(--muted); text-decoration: none; font-weight: 600; }
+  h1 { font-size: clamp(28px, 7vw, 38px); line-height: 1.15; letter-spacing: -0.5px; margin: 18px 0 8px; }
+  .lead { color: var(--muted); margin: 0 0 24px; font-size: 17px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px; }
+  label { display: block; font-weight: 600; margin-bottom: 8px; }
+  .row { display: flex; gap: 10px; }
+  input[type=text] { flex: 1; min-width: 0; font: inherit; color: var(--ink); background: var(--bg);
+         border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+  input[type=text]:focus { outline: none; border-color: var(--accent); }
+  button { font: inherit; font-weight: 600; cursor: pointer; border-radius: 12px; }
+  .primary { background: var(--accent); color: var(--accent-ink); border: 0; padding: 12px 18px; white-space: nowrap; }
+  .ghost { background: transparent; color: var(--accent); border: 0; padding: 8px 0; }
+  .examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .examples button { background: var(--soft); color: var(--ink); border: 0; padding: 7px 12px;
+         border-radius: 999px; font-weight: 500; font-size: 14px; }
+  #result { margin-top: 18px; }
+  .hint { display: flex; gap: 10px; align-items: flex-start; background: var(--soft);
+         border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; }
+  .hint b { color: var(--accent); }
+  ol.steps { list-style: none; margin: 0; padding: 0; }
+  ol.steps li { display: flex; align-items: center; gap: 12px; padding: 12px 2px;
+         border-bottom: 1px solid var(--line); }
+  ol.steps li:last-child { border-bottom: 0; }
+  .num { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+         background: var(--soft); color: var(--accent); font-weight: 700; font-size: 14px; }
+  .step { flex: 1; }
+  .mins { color: var(--muted); font-size: 14px; white-space: nowrap; }
+  li.checked .step { text-decoration: line-through; color: var(--done); }
+  li.checked .num { background: var(--accent); color: var(--accent-ink); }
+  ol.steps input[type=checkbox] { width: 22px; height: 22px; accent-color: var(--accent); flex: none; }
+  .total { color: var(--muted); font-size: 14px; margin: 10px 0 0; }
+  .actions { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 8px; }
+  .note { color: var(--muted); font-size: 15px; margin: 12px 0 0; }
+  .cta { margin-top: 18px; border: 1.5px solid var(--accent); }
+  .cta h2 { margin: 0 0 6px; font-size: 19px; }
+  .cta p { margin: 0 0 14px; color: var(--muted); }
+  .features { margin: 0 0 12px; padding-left: 20px; }
+  .features li { margin: 0 0 8px; color: var(--muted); }
+  .features b { color: var(--ink); }
+  .cta p.small { font-size: 14px; }
+  .play { display: inline-block; background: var(--ink); color: var(--bg); text-decoration: none;
+         padding: 11px 18px; border-radius: 12px; }
+  section.info h2 { font-size: 21px; margin: 36px 0 8px; }
+  section.info p { margin: 0 0 12px; }
+  ul.known { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  ul.known li { border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; font-size: 14px; color: var(--muted); }
+  details { border-bottom: 1px solid var(--line); padding: 12px 0; }
+  summary { font-weight: 600; cursor: pointer; }
+  details p { margin: 8px 0 0; color: var(--muted); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 14px; text-align: center; }
+  [hidden] { display: none !important; }
+  @media (max-width: 420px) { .row { flex-direction: column; } .primary { width: 100%; } }
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+ {"@type":"Question","name":"Is this task breakdown tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes. It is free, there is no sign-up, and there are no ads on this page."}},
+ {"@type":"Question","name":"Does it send my tasks anywhere?","acceptedAnswer":{"@type":"Answer","text":"No. Everything runs in your browser. What you type is not stored and is not sent to any server."}},
+ {"@type":"Question","name":"Is it made for ADHD?","acceptedAnswer":{"@type":"Answer","text":"It is built around the moment many people with ADHD describe as the hardest: starting. Anyone who procrastinates can use it. It is a planning aid, not a medical tool."}},
+ {"@type":"Question","name":"Does it work in other languages?","acceptedAnswer":{"@type":"Answer","text":"The ready-made breakdowns recognise English words. For anything else it asks for your first move and builds from that, in any language."}}
+]}
+</script>
+</head>
+<body>
+<main>
+  <a class="brand" href="./">Halfstep</a>
+  <h1>Break any task into small steps</h1>
+  <p class="lead">Type the thing you keep putting off. Get small, doable steps, each with the minutes it takes. Free, no sign-up, and nothing leaves your browser.</p>
+
+  <div class="card">
+    <form id="form" autocomplete="off">
+      <label for="task">What do you need to do?</label>
+      <div class="row">
+        <input id="task" type="text" maxlength="120" placeholder="e.g. pay the electricity bill" required>
+        <button class="primary" type="submit">Break it down</button>
+      </div>
+    </form>
+    <div class="examples" aria-label="Examples">
+      <button type="button">do the laundry</button>
+      <button type="button">pay the electricity bill</button>
+      <button type="button">reply to emails</button>
+      <button type="button">clean the kitchen</button>
+      <button type="button">study for the exam</button>
+    </div>
+
+    <div id="result" hidden aria-live="polite">
+      <div class="hint"><span aria-hidden="true">✦</span><span id="hintText"></span></div>
+
+      <form id="firstForm" hidden autocomplete="off">
+        <label for="first">What would you physically do first?</label>
+        <div class="row">
+          <input id="first" type="text" maxlength="120" placeholder="Something you could start now">
+          <button class="primary" type="submit">That's my first step</button>
+        </div>
+        <button class="ghost" id="general" type="button">Use a general plan instead</button>
+      </form>
+
+      <ol class="steps" id="steps"></ol>
+      <p class="total" id="total"></p>
+      <p class="note" id="note" hidden>That's the only step you need right now. Start it in the next minute; the next move is easier to see once you're moving.</p>
+      <div class="actions" id="actions" hidden>
+        <button class="ghost" id="copy" type="button">Copy steps</button>
+        <button class="ghost" id="again" type="button">Start over</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card cta" id="cta" hidden>
+    <h2>Now make it actually happen</h2>
+    <p>One Step puts these steps on your Android phone and sends a reminder that comes back after 2, 5, 9, 14 and 20 minutes, until you tap Start. Swiping it away doesn't count.</p>
+    <ul class="features">
+      <li><b>Say it instead of typing.</b> Tap the mic to add a task or a step. Voice stays on your phone (Android 12 and newer).</li>
+      <li><b>Add from anywhere.</b> Share text from WhatsApp, Chrome or any app, or tap the "Add a task" tile in Quick Settings.</li>
+      <li><b>The same breakdowns as this page,</b> ready to edit.</li>
+      <li><b>A focus timer you can see,</b> still running in the notification shade when the app is closed.</li>
+      <li><b>Reminder check.</b> Finds what's blocking your reminders on your phone and sends a test.</li>
+      <li><b>Private by default.</b> No account, no cloud. Back up to a file when you change phones.</li>
+    </ul>
+    <p class="small">Free, with one small banner ad on a few screens, never on the one you're working from.</p>
+    <a class="play" href="https://play.google.com/store/apps/details?id=com.onestep.one_step&amp;referrer=utm_source%3Dhalfstep-site%26utm_medium%3Dweb%26utm_campaign%3Dbreak-it-down" rel="noopener">Get One Step on Google Play →</a>
+  </div>
+
+  <section class="info">
+    <h2>Why a tiny first step works</h2>
+    <p>The hardest part of most tasks isn't doing them. It's starting. "Do my taxes" is too big to begin, so the brain looks for something else. "Find last year's form" takes two minutes, and it's hard to say no to two minutes.</p>
+    <p>Every breakdown here follows three rules: the first step is physical and takes a minute or three ("find the form", never "think about the form"), no step is longer than ten minutes, and the steps are in the order you'd actually do them.</p>
+
+    <h2>Tasks it already knows</h2>
+    <p>43 ready-made breakdowns, from chores to paperwork. Anything else, it asks for your first move.</p>
+    <ul class="known"><li>a bill</li><li>a cancellation</li><li>a conversation</li><li>a decision</li><li>a gift</li><li>a job application</li><li>a meeting</li><li>a message</li><li>a pet</li><li>a phone call</li><li>a presentation</li><li>a repair</li><li>a return or refund</li><li>a thank-you note</li><li>a trip</li><li>an appointment</li><li>an email</li><li>an interview</li><li>changing the bed</li><li>cleaning</li><li>cooking</li><li>errands</li><li>exercise</li><li>files and photos</li><li>getting out of the door</li><li>ironing</li><li>laundry</li><li>looking something up</li><li>packing</li><li>paperwork</li><li>planning</li><li>plants and the garden</li><li>putting laundry away</li><li>shopping</li><li>something to study</li><li>something to write</li><li>taking the rubbish out</li><li>the bathroom</li><li>the car</li><li>the dishes</li><li>the kitchen</li><li>your budget</li><li>your inbox</li></ul>
+
+    <h2>Questions</h2>
+    <details><summary>Is this free?</summary><p>Yes. No sign-up, no ads on this page.</p></details>
+    <details><summary>Does it send my tasks anywhere?</summary><p>No. Everything runs in your browser. What you type isn't stored and isn't sent to any server.</p></details>
+    <details><summary>Is it made for ADHD?</summary><p>It's built around the moment many people with ADHD describe as the hardest: starting. Anyone who procrastinates can use it. It's a planning aid, not a medical tool.</p></details>
+    <details><summary>Does it work in other languages?</summary><p>The ready-made breakdowns recognise English words. For anything else it asks for your first move, in any language.</p></details>
+    <details><summary>What is One Step?</summary><p>A free Android app by Halfstep with the same breakdowns and a reminder that repeats until you actually start. It also has voice input, share-to-add, a Quick Settings tile, a focus timer and a Reminder check. No account, and your tasks stay on your phone.</p></details>
+  </section>
+
+  <footer>
+    <a href="./">Halfstep</a> · <a href="privacy.html">Privacy</a> · seif.appslab@gmail.com
+  </footer>
+</main>
+
+<script>
+const DATA = {"t":[{"n":"laundry","p":false,"k":["laundry","washing","clothes","wash the clothes","washing machine"],"s":[{"t":"Pick the clothes up off the floor","m":3},{"t":"Put them in the machine","m":2},{"t":"Add detergent and press start","m":1},{"t":"Move them to dry","m":5}]},{"n":"putting laundry away","p":false,"k":["fold","folding","put away the clothes","put the clothes away","fold the laundry"],"s":[{"t":"Tip the clean clothes onto the bed","m":1},{"t":"Fold or hang five things","m":4},{"t":"Fold the rest","m":8},{"t":"Put each pile where it lives","m":5}]},{"n":"ironing","p":false,"k":["iron","ironing"],"s":[{"t":"Plug in the iron and set up the board","m":2},{"t":"Iron the one thing you need first","m":5},{"t":"Iron three more","m":8},{"t":"Hang them up and switch the iron off","m":2}]},{"n":"the dishes","p":false,"k":["dishes","dish","washing up","wash up","sink","dishwasher"],"s":[{"t":"Clear one shelf of the sink","m":3},{"t":"Wash five things","m":5},{"t":"Wash whatever is left","m":6},{"t":"Wipe the counter once","m":2}]},{"n":"changing the bed","p":false,"k":["bed sheets","sheets","change the bed","change the sheets","bedding","make the bed"],"s":[{"t":"Pull the old sheets off","m":2},{"t":"Get the clean set out","m":1},{"t":"Fitted sheet on","m":3},{"t":"Duvet cover and pillowcases","m":6}]},{"n":"taking the rubbish out","p":false,"k":["trash","rubbish","garbage","bins","bin","recycling","take out the trash","take the bins out"],"s":[{"t":"Tie up the bag that is in there now","m":1},{"t":"Put a new bag in","m":1},{"t":"Carry it out","m":3}]},{"n":"the bathroom","p":false,"k":["bathroom","toilet","clean the shower","clean the bath","bathtub","clean the bathroom","clean the toilet"],"s":[{"t":"Spray the sink and the toilet","m":2},{"t":"Wipe the sink and the mirror","m":4},{"t":"Scrub the toilet","m":4},{"t":"Swap the towel for a clean one","m":1}]},{"n":"the kitchen","p":false,"k":["kitchen","fridge","oven","stove","counters","worktop","hob","clean the kitchen","clean the fridge","clean the oven"],"s":[{"t":"Put away anything that belongs in a cupboard","m":3},{"t":"Stack the dirty things by the sink","m":2},{"t":"Wipe the counters","m":4},{"t":"Throw out one old thing from the fridge","m":2}]},{"n":"cooking","p":false,"k":["cook","cooking","dinner","lunch","breakfast","meal","recipe","bake","baking","meal prep","make food","meal plan","plan meals"],"s":[{"t":"Pick what to make — the easiest option counts","m":2},{"t":"Get every ingredient onto the counter","m":3},{"t":"Do the chopping","m":8},{"t":"Cook it","m":10}]},{"n":"plants and the garden","p":false,"k":["plants","plant","water the plants","garden","lawn","mow","mowing","weeds","weeding"],"s":[{"t":"Put your shoes on and go outside, or fill the watering can","m":2},{"t":"Do the part you can see from the door","m":8},{"t":"Put the tools back","m":2}]},{"n":"a pet","p":false,"k":["dog","cat","walk the dog","feed the","vet","litter","litter box","pet","fish tank"],"s":[{"t":"Get the lead, the food or the scoop in your hand","m":1},{"t":"Do the first part","m":5},{"t":"Finish and put things back","m":5}]},{"n":"a bill","p":false,"k":["bill","pay","invoice","rent","subscription","utility","utilities","electricity","water bill","gas bill","phone bill","credit card","loan","mortgage","parking ticket"],"s":[{"t":"Find the amount and the due date","m":3},{"t":"Open the bank or payment app","m":1},{"t":"Make the payment","m":3},{"t":"Save the receipt","m":1}]},{"n":"a cancellation","p":false,"k":["cancel","unsubscribe","cancel my","end my subscription","stop my subscription"],"s":[{"t":"Open the account page or the app","m":2},{"t":"Find the cancel option","m":5},{"t":"Cancel it","m":3},{"t":"Screenshot the confirmation","m":1}]},{"n":"a return or refund","p":false,"k":["refund","send back","send it back","returns","return label","ask for a refund"],"s":[{"t":"Find the order email","m":3},{"t":"Start the return on their site","m":5},{"t":"Pack it and stick the label on","m":5},{"t":"Put it by the door with your keys","m":1}]},{"n":"your budget","p":false,"k":["budget","budgeting","bank statement","finances","expenses","savings","receipts","spending","money"],"s":[{"t":"Open your banking app","m":1},{"t":"Read last week’s spending, no judging","m":5},{"t":"Write down the three biggest things","m":3},{"t":"Pick one small change for this week","m":3}]},{"n":"an appointment","p":false,"k":["appointment","dentist","doctor","clinic","book a","book an","gp","optician","eye test","haircut","barber","hairdresser","checkup","check-up"],"s":[{"t":"Write down the one sentence you will say","m":2},{"t":"Find the number or the booking page","m":2},{"t":"Make the call or book it online","m":5},{"t":"Put the date in your calendar","m":1}]},{"n":"shopping","p":false,"k":["groceries","grocery","shopping","supermarket","buy","food shop","food shopping"],"s":[{"t":"List five things you actually need","m":3},{"t":"Get your keys, wallet and bag together","m":2},{"t":"Go","m":10},{"t":"Put the cold things away first","m":5}]},{"n":"errands","p":false,"k":["errand","errands","run errands","post office","parcel","package","drop off","pick up","collect"],"s":[{"t":"Put everything you need to take by the door","m":3},{"t":"Check the opening hours","m":1},{"t":"Go and do the first stop","m":10},{"t":"Do the next stop, or head home","m":10}]},{"n":"the car","p":false,"k":["car","mot","oil change","tyres","tires","car wash","service the car","fuel","petrol","car insurance"],"s":[{"t":"Find the car’s papers or the garage’s number","m":3},{"t":"Book it or drive there","m":5},{"t":"Put the next date in your calendar","m":1}]},{"n":"a trip","p":false,"k":["trip","travel","flight","flights","holiday","vacation","hotel","book a flight","train ticket","train tickets","airbnb","plan the trip","plan a trip","plan the holiday","plan a holiday"],"s":[{"t":"Write down the dates that work","m":2},{"t":"Look at three options, no more","m":10},{"t":"Book the best of the three","m":8},{"t":"Save the confirmation somewhere you will find it","m":2}]},{"n":"packing","p":false,"k":["pack","packing","suitcase","luggage","pack a bag"],"s":[{"t":"Put the bag open on the bed","m":1},{"t":"Charger, documents, wallet — in first","m":3},{"t":"Clothes for each day","m":8},{"t":"Toiletries, then close it","m":4}]},{"n":"getting out of the door","p":false,"k":["get ready","get dressed","leave the house","leave on time","go out"],"s":[{"t":"Clothes on — any clothes","m":4},{"t":"Keys, phone, wallet in one pocket","m":1},{"t":"Shoes on","m":2},{"t":"Out of the door","m":1}]},{"n":"exercise","p":false,"k":["gym","workout","work out","exercise","go for a run","running","go running","jog","jogging","walk","yoga","stretch","stretching","swim","swimming","training","cycle","bike ride"],"s":[{"t":"Put on the clothes and the shoes","m":3},{"t":"Fill a water bottle","m":1},{"t":"Do the first five minutes only","m":5},{"t":"Keep going if you feel like it","m":10}]},{"n":"a message","p":false,"k":["text","whatsapp","message","dm","text back","message back","get back to"],"s":[{"t":"Open the chat","m":1},{"t":"Type the first line — it can be \"Hey!\"","m":2},{"t":"Finish it and send","m":3}]},{"n":"a gift","p":false,"k":["gift","birthday present","birthday","anniversary","christmas present","wedding gift"],"s":[{"t":"Write down three things they like","m":3},{"t":"Pick one idea from the list","m":3},{"t":"Order it or put it on your shopping list","m":8},{"t":"Write the card","m":4}]},{"n":"a thank-you note","p":false,"k":["thank you","thank-you","thank you note","card","thank them"],"s":[{"t":"Get a card or open a message","m":1},{"t":"Write one sentence about what they did","m":3},{"t":"Sign it and send it","m":2}]},{"n":"a presentation","p":false,"k":["presentation","slides","deck","pitch","keynote","powerpoint"],"s":[{"t":"Open a blank slide and type the title","m":2},{"t":"Write the three points, one per slide","m":8},{"t":"Add one picture or number to each","m":10},{"t":"Say it out loud once","m":8}]},{"n":"a meeting","p":false,"k":["meeting","agenda","one to one","1:1","prep for the meeting","standup","set up a meeting","set up the meeting"],"s":[{"t":"Open the invite and the notes","m":1},{"t":"Write the three things you want out of it","m":4},{"t":"Gather the links or files you will need","m":4}]},{"n":"a job application","p":false,"k":["job application","apply for a job","apply for the job","cv","resume","cover letter","linkedin","job hunt","job search","job ad"],"s":[{"t":"Open the job ad and your CV side by side","m":2},{"t":"Change one line of the CV to match the ad","m":8},{"t":"Write the first paragraph of the letter","m":8},{"t":"Finish it and press apply","m":10}]},{"n":"an interview","p":false,"k":["interview","interview prep"],"s":[{"t":"Read the job description once","m":4},{"t":"Write three things you did that fit it","m":8},{"t":"Say your answer to \"tell me about yourself\" out loud","m":5},{"t":"Lay out clothes and check the time and place","m":5}]},{"n":"your inbox","p":false,"k":["inbox","emails","clear my inbox","inbox zero","unread"],"s":[{"t":"Open your mail and look at the newest ten only","m":2},{"t":"Archive everything you do not need to act on","m":5},{"t":"Answer the quickest one","m":4},{"t":"Turn one of the rest into a task here","m":3}]},{"n":"files and photos","p":false,"k":["files","photos","downloads","desktop","folder","folders","storage","backup","back up","phone storage"],"s":[{"t":"Open the folder","m":1},{"t":"Delete the ten you are sure about","m":5},{"t":"Make one folder for the rest","m":3},{"t":"Move them in","m":5}]},{"n":"an email","p":true,"k":["email","e-mail","reply","send","write to","respond","mail","follow up","follow-up"],"s":[{"t":"Open your mail and start a reply","m":1},{"t":"Write one sentence — any sentence","m":3},{"t":"Finish it and send","m":5}]},{"n":"a phone call","p":true,"k":["call","phone","ring","call back","phone call"],"s":[{"t":"Write down the one thing you need to say","m":2},{"t":"Dial","m":1},{"t":"Have the call","m":8}]},{"n":"cleaning","p":true,"k":["clean","tidy","room","mess","declutter","hoover","vacuum","dust","dusting","mop","sweep","wardrobe","closet","drawer","desk","organise","organize","clutter"],"s":[{"t":"Pick up five things and put them away","m":4},{"t":"Throw five things out","m":3},{"t":"Clear one surface completely","m":6}]},{"n":"paperwork","p":true,"k":["form","tax","taxes","tax return","application","apply","paperwork","renew","passport","licence","license","insurance","visa","document","documents","sign","contract","claim","benefits","register","letter"],"s":[{"t":"Find the form","m":3},{"t":"Open it and fill in one field","m":3},{"t":"Fill in the rest","m":9},{"t":"Check it once, then send it","m":4}]},{"n":"something to study","p":true,"k":["study","revise","revision","exam","exams","homework","read","course","learn","assignment","lecture","notes","practice","practise","quiz","chapter"],"s":[{"t":"Put your phone in another room","m":1},{"t":"Open the material at the right page","m":2},{"t":"Read for ten minutes only","m":10},{"t":"Write down the one thing you learned","m":3}]},{"n":"something to write","p":true,"k":["write","essay","report","article","blog","draft","proposal","thesis","post","story"],"s":[{"t":"Open a blank page and type the title","m":1},{"t":"Write three bullet points of what it says","m":4},{"t":"Turn the first bullet into sentences","m":10},{"t":"Do the next bullet","m":10}]},{"n":"looking something up","p":true,"k":["research","look into","find out","compare","look up","figure out"],"s":[{"t":"Write the question in one line","m":2},{"t":"Search and open three results, no more","m":6},{"t":"Write down what you found","m":4}]},{"n":"a decision","p":true,"k":["decide","choose","make a decision","which one"],"s":[{"t":"Write the options down, however many","m":2},{"t":"Cross out the ones you would not really pick","m":3},{"t":"Choose — good enough counts","m":3}]},{"n":"a conversation","p":true,"k":["talk to","speak to","ask","tell","conversation","discuss","chat with"],"s":[{"t":"Write the one sentence you want to say","m":3},{"t":"Send \"Have you got five minutes?\"","m":1},{"t":"Have the conversation","m":10}]},{"n":"a repair","p":true,"k":["fix","repair","broken","replace","install","assemble","set up","hang"],"s":[{"t":"Get the thing and the tools in one place","m":3},{"t":"Look up how — one video or one page","m":5},{"t":"Do the first part","m":8},{"t":"Finish it or write down where you stopped","m":8}]},{"n":"planning","p":true,"k":["plan","planning","schedule","calendar","organise my week","to-do list","todo list","week"],"s":[{"t":"Open your calendar","m":1},{"t":"Write down what is already fixed","m":4},{"t":"Put the one most important thing in a slot","m":3}]}],"f":[{"t":"Get whatever you need in front of you","m":3},{"t":"Do the smallest piece of it","m":8},{"t":"Finish and put things away","m":5}],"x":["","s","es","ing","ed","d"]};
+
+// Same matching as the app (step_templates.dart): whole words, a few endings,
+// the first word weighs most, specific templates beat general patterns.
+function isLetter(c) { return (c >= 0x61 && c <= 0x7a) || (c >= 0x30 && c <= 0x39) || c >= 0xc0; }
+function wordIndex(text, kw) {
+  let from = 0;
+  while (true) {
+    const at = text.indexOf(kw, from);
+    if (at < 0) return -1;
+    if (at === 0 || !isLetter(text.charCodeAt(at - 1))) {
+      const end = at + kw.length;
+      for (const sfx of DATA.x) {
+        const stop = end + sfx.length;
+        if (stop > text.length || text.substring(end, stop) !== sfx) continue;
+        if (stop === text.length || !isLetter(text.charCodeAt(stop))) return at;
+      }
+    }
+    from = at + 1;
+  }
+}
+function match(title) {
+  const text = title.toLowerCase().trim();
+  let best = null, bestScore = 0;
+  for (const t of DATA.t) for (const kw of t.k) {
+    const at = wordIndex(text, kw);
+    if (at < 0) continue;
+    let score = kw.length + (t.p ? 0 : 100) + (at === 0 ? 200 : 0);
+    if (score > bestScore) { bestScore = score; best = t; }
+  }
+  return best;
+}
+
+const $ = id => document.getElementById(id);
+let current = [];
+
+function render(steps, { single = false } = {}) {
+  current = steps;
+  const ol = $('steps');
+  ol.innerHTML = '';
+  steps.forEach((s, i) => {
+    const li = document.createElement('li');
+    const box = document.createElement('input');
+    box.type = 'checkbox';
+    box.setAttribute('aria-label', 'Done: ' + s.t);
+    box.addEventListener('change', () => li.classList.toggle('checked', box.checked));
+    const num = document.createElement('span'); num.className = 'num'; num.textContent = i + 1;
+    const txt = document.createElement('span'); txt.className = 'step'; txt.textContent = s.t;
+    const min = document.createElement('span'); min.className = 'mins'; min.textContent = s.m + ' min';
+    li.append(num, txt, min, box);
+    ol.append(li);
+  });
+  const total = steps.reduce((a, s) => a + s.m, 0);
+  $('total').textContent = steps.length > 1 ? `About ${total} minutes in all. Start with step 1 only.` : '';
+  $('note').hidden = !single;
+  $('actions').hidden = steps.length === 0;
+  $('cta').hidden = steps.length === 0;
+}
+
+function breakDown(title) {
+  title = title.trim();
+  if (!title) return;
+  $('result').hidden = false;
+  const t = match(title);
+  if (t) {
+    $('hintText').innerHTML = '';
+    $('hintText').append('This looks like ', Object.assign(document.createElement('b'), { textContent: t.n }), '. Here is how that usually goes.');
+    $('firstForm').hidden = true;
+    render(t.s);
+  } else {
+    $('hintText').textContent = 'This one is new to me. Tell me the first move and I will build around it.';
+    $('firstForm').hidden = false;
+    render([]);
+    $('first').value = '';
+    $('first').focus();
+  }
+}
+
+$('form').addEventListener('submit', e => { e.preventDefault(); breakDown($('task').value); });
+document.querySelectorAll('.examples button').forEach(b =>
+  b.addEventListener('click', () => { $('task').value = b.textContent; breakDown(b.textContent); }));
+$('firstForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const v = $('first').value.trim();
+  if (!v) return;
+  $('firstForm').hidden = true;
+  render([{ t: v, m: 5 }], { single: true });
+});
+$('general').addEventListener('click', () => { $('firstForm').hidden = true; render(DATA.f); });
+$('again').addEventListener('click', () => {
+  $('result').hidden = true; $('cta').hidden = true; $('task').value = ''; $('task').focus();
+});
+$('copy').addEventListener('click', async () => {
+  const text = $('task').value.trim() + '\n' + current.map((s, i) => `${i + 1}. ${s.t} (${s.m} min)`).join('\n');
+  try { await navigator.clipboard.writeText(text); $('copy').textContent = 'Copied ✓'; }
+  catch { $('copy').textContent = 'Copy failed'; }
+  setTimeout(() => { $('copy').textContent = 'Copy steps'; }, 1500);
+});
+</script>
+</body>
+</html>
