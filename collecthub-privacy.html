@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CollectHub — Privacy Policy</title>
+<style>
+ body{max-width:760px;margin:0 auto;padding:36px 20px 80px;background:#FFFBF4;color:#2A2A33;
+      font:16px/1.75 -apple-system,"Segoe UI",system-ui,sans-serif}
+ h1{font-size:30px;margin:0 0 6px} h2{font-size:21px;margin:34px 0 10px}
+ h3{font-size:17px;margin:22px 0 8px} hr{border:0;border-top:1px solid #F0E6DA;margin:28px 0}
+ code{background:#F5EFE6;padding:1px 5px;border-radius:5px;font-size:14px}
+ a{color:#C9603F} ul{padding-inline-start:22px} li{margin:5px 0}
+ table{border-collapse:collapse;width:100%;margin:14px 0;font-size:14.5px}
+ th,td{border:1px solid #F0E6DA;padding:8px 10px;text-align:start}
+ th{background:#FFF4EC}
+</style></head><body>
+<h1>CollectHub — Privacy Policy</h1>
+
+<p><strong>Effective date: 2 October 2026</strong></p>
+
+<p>CollectHub is made by Seif Aldeen Mahmoud Tawfiq Albataineh, trading as <strong>Halfstep</strong>.</p>
+<p>Contact: <strong>saefbataineh123@gmail.com</strong></p>
+
+<p>This policy explains exactly what the app does with information. It is written to match</p>
+<p>what the code actually does. If the two ever disagree, the code is a bug and we fix it.</p>
+
+<hr>
+
+<h2>The short version</h2>
+
+<ul>
+<li><strong>Your collection stays on your phone.</strong> Items, shelves, photos, notes, prices and</li>
+</ul>
+<p>  tags are stored only in the app's own storage on your device. We never see them and</p>
+<p>  they are never uploaded anywhere.</p>
+<ul>
+<li><strong>There is no account.</strong> No sign-up, no email, no password, no profile.</li>
+<li><strong>Scanning a barcode sends one thing: the barcode number.</strong> Nothing that identifies</li>
+</ul>
+<p>  you or your phone goes with it.</p>
+<ul>
+<li><strong>Ads are served by Google AdMob</strong>, which collects its own data. That part is</li>
+</ul>
+<p>  described below and is the only advertising-related collection in the app.</p>
+<ul>
+<li><strong>You can take your data out at any time</strong> — CSV export and a full backup file — and</li>
+</ul>
+<p>  delete everything from inside the app.</p>
+
+<hr>
+
+<h2>1. What stays on your device</h2>
+
+<p>Everything you create in CollectHub is stored locally, in the app's private storage:</p>
+
+<ul>
+<li>shelves, items and the fields you define</li>
+<li>photos you add to items</li>
+<li>status (owned, wishlist, for trade, duplicate), prices, locations, notes, tags</li>
+<li>your settings: language, theme, sort order, and whether you bought the unlock</li>
+</ul>
+
+<p>None of this is transmitted to us. Uninstalling the app deletes all of it.</p>
+
+<h2>2. Barcode lookups — the one thing that leaves your phone</h2>
+
+<p>When you scan or type a barcode and the app looks it up, the app sends **the barcode</p>
+<p>number only** to our lookup service at <code>collecthub-lookup.seif-appslab.workers.dev</code>,</p>
+<p>hosted on Cloudflare.</p>
+
+<ul>
+<li><strong>What is sent:</strong> the barcode digits. Nothing else. No name, no device id, no</li>
+</ul>
+<p>  advertising id, no account (there is none), no list of what you own.</p>
+<ul>
+<li><strong>What our service does:</strong> it asks public product catalogues — UPCitemdb, Open</li>
+</ul>
+<p>  Products Facts and the eBay Browse API — for the product's name, brand and picture,</p>
+<p>  and returns that to your phone.</p>
+<ul>
+<li><strong>What we store:</strong> the pairing of *barcode number → product details*, so the next</li>
+</ul>
+<p>  person who scans the same barcode gets an instant answer. This is information about a</p>
+<p>  product, not about a person. We also keep daily counts of how many lookups succeeded</p>
+<p>  or failed, as plain numbers with nothing attached to them.</p>
+<ul>
+<li><strong>What we do not store:</strong> we do not keep logs of who looked up what, and we do not</li>
+</ul>
+<p>  build any profile. We have no way to connect a barcode to a person, because we never</p>
+<p>  receive anything that identifies one.</p>
+<ul>
+<li><strong>IP address:</strong> as with any request to any server on the internet, our hosting</li>
+</ul>
+<p>  provider (Cloudflare) sees the IP address the request came from, for the moment it</p>
+<p>  takes to answer it, and for its own network-security protection. We do not use it,</p>
+<p>  store it, or combine it with anything.</p>
+
+<p>For <strong>books</strong>, the app queries Open Library and Google Books directly from the phone</p>
+<p>instead, sending only the ISBN. For <strong>music</strong>, it may query MusicBrainz, sending only</p>
+<p>the barcode. Those services have their own privacy policies.</p>
+
+<p>Barcode lookup is optional in practice: if you add an item by hand without scanning,</p>
+<p>no request is made, and the app works fully offline.</p>
+
+<h2>3. Photos and the camera</h2>
+
+<ul>
+<li>The <strong>camera</strong> is used for one thing: reading a barcode inside the scanner screen, and</li>
+</ul>
+<p>  taking a picture of an item if you choose to. Camera frames are processed on your</p>
+<p>  device and are never uploaded; the scanner does not save pictures at all.</p>
+<ul>
+<li>Photos you attach to items come from your camera or from the system picker, and are</li>
+</ul>
+<p>  stored in the app's own storage on your phone.</p>
+
+<h2>4. Advertising (Google AdMob)</h2>
+
+<p>The free version of CollectHub shows ads supplied by Google AdMob. Google acts as an</p>
+<p>independent controller for this and collects and shares the following, per Google's own</p>
+<p>published disclosure:</p>
+
+<table>
+<tr><th>Data type</th><th>Collected</th><th>Shared</th><th>Purpose</th></tr>
+<tr><td>Approximate location (derived from IP)</td><td>Yes</td><td>Yes</td><td>Advertising, analytics</td></tr>
+<tr><td>App interactions</td><td>Yes</td><td>Yes</td><td>Advertising, analytics</td></tr>
+<tr><td>Diagnostics (crash and performance data)</td><td>Yes</td><td>Yes</td><td>Analytics</td></tr>
+<tr><td>Device or other identifiers</td><td>Yes</td><td>Yes</td><td>Advertising</td></tr>
+</table>
+
+<p>Google's policy: <a href="https://policies.google.com/technologies/partner-sites">https://policies.google.com/technologies/partner-sites</a></p>
+
+<p>In the European Economic Area, the United Kingdom and Switzerland, a consent screen</p>
+<p>appears before the first ad and your choice is respected; you can change it later from</p>
+<p><strong>Settings → Ad privacy</strong>. Buying the one-time unlock removes all ads, and when ads are</p>
+<p>off the advertising SDK is not asked for an ad at all.</p>
+
+<h2>5. Purchases</h2>
+
+<p>The one-time unlock is sold through Google Play Billing. Google handles the payment; we</p>
+<p>never see your card, address or any payment detail. The app only receives Google's</p>
+<p>answer that the purchase exists, and stores a flag on your phone.</p>
+
+<h2>6. Analytics</h2>
+
+<p>There is none. CollectHub contains no analytics SDK, no crash-reporting SDK and no</p>
+<p>tracking of how you use the app. The only usage numbers that exist anywhere are the</p>
+<p>anonymous daily lookup counts described in section 2.</p>
+
+<h2>7. Children</h2>
+
+<p>CollectHub is not directed at children and is rated for a general audience. We do not</p>
+<p>knowingly collect anything from children; in fact we do not knowingly collect anything</p>
+<p>about any identifiable person.</p>
+
+<h2>8. Your control over your data</h2>
+
+<ul>
+<li><strong>Export:</strong> Settings → Export, which writes a CSV file you keep.</li>
+<li><strong>Backup:</strong> Settings → Backup, which writes a zip containing your data and photos.</li>
+<li><strong>Delete everything:</strong> Settings → Erase everything removes all shelves, items, photos</li>
+</ul>
+<p>  and settings from the device. Uninstalling the app also deletes everything.</p>
+<ul>
+<li>Because we hold nothing that identifies you, there is nothing on our side for us to</li>
+</ul>
+<p>  delete, correct or hand over. If you believe otherwise, write to the address at the</p>
+<p>  top and we will answer.</p>
+
+<h2>9. Changes</h2>
+
+<p>If this policy changes, the effective date at the top changes with it, and the updated</p>
+<p>version appears at the same address before the change reaches the app.</p>
+
+<h2>10. Contact</h2>
+
+<p>Seif Aldeen Mahmoud Tawfiq Albataineh, trading as Halfstep — <strong>saefbataineh123@gmail.com</strong></p>
+
+</body></html>
